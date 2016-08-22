@@ -18,7 +18,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(prog='concur', description='Accepted currencies: %s'%','.join(currencies))
     parser.add_argument('value', help='Value', type=float)
     parser.add_argument('fc', help='Currency to convert from.', choices=currencies)
-    parser.add_argument('tc', help='Currency to convert to. Default: USD', choices=currencies, default='usd')
+    parser.add_argument('tc', help='Currency to convert to. Default: USD', choices=currencies, default='usd', nargs='?')
     args = parser.parse_args()
     args.fc = args.fc.upper()
     args.tc = args.tc.upper()
