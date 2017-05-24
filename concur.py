@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import requests
+import urllib.request
 
 currencies = ['aud', 'cad', 'chf', 'cnh', 'cny', 'eur', 'gbp', 'hkd', 'ils',
               'inr', 'jpy', 'krw', 'mxn', 'nzd', 'rub', 'sek', 'sgd', 'usd']
@@ -8,9 +8,15 @@ def main(args):
     print('{:.2f} {}'.format(convert(args.value, args.fc, args.tc), args.tc))
 
 def convert(value, fromcur, tocur):
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0',
+        'Accept': 'text/html'
+    }
+
     url = 'http://download.finance.yahoo.com/d/quotes.csv?s={}{}=X&f=l1'.format(fromcur, tocur)
-    query = requests.get(url)
-    rate = float(query.text)
+    req = urllib.request.Request(url)
+    html = urllib.request.urlopen(req).read()
+    rate = float(html)
     return value * rate
 
 if __name__ == '__main__':
