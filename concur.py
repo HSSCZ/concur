@@ -14,7 +14,7 @@ def convert(value, fromcur, tocur):
     }
 
     url = 'http://download.finance.yahoo.com/d/quotes.csv?s={}{}=X&f=l1'.format(fromcur, tocur)
-    req = urllib.request.Request(url)
+    req = urllib.request.Request(url, headers=headers)
     html = urllib.request.urlopen(req).read()
     rate = float(html)
     return value * rate
